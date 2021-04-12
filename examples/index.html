@@ -1,0 +1,35 @@
+<html lang="ko">
+<head>
+    <title>GtbPlayer Example</title>
+    <style>
+        html, body {
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+        video{
+            width: 30%;
+            height: 30%;
+            object-fit: fill;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <video id="player"></video>
+</body>
+
+<script src="../dist/gtbPlayer.js"></script>
+<script type="application/javascript">
+    const a= new GtbPlayer('http://localhost:8083', 'rino', 'rino')
+    a.greeting()
+    a.getStreams()
+
+    GtbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
+    // GtbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
+</script>
+</html>
