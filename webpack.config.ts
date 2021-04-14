@@ -2,14 +2,14 @@ module.exports = {
     devtool: 'source-map', // 소스맵을 통해 디버깅이 가능하게 해준다.
     mode: 'development',
     // mode: 'production',
-    entry: { gtbPlayer: './index.ts' },
+    entry: { gbPlayer: './index.ts' },
     optimization: {
         concatenateModules: true, // 성능 최적화
     },
     output: {
-        filename: 'gtbPlayer.js',
-        sourceMapFilename: 'gtbPlayer.map',
-        library: 'GtbPlayer',
+        filename: 'gbPlayer.js',
+        sourceMapFilename: 'gbPlayer.map',
+        library: 'GbPlayer',
         libraryTarget: 'umd',
         umdNamedDefine: true
     },

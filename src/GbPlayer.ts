@@ -5,7 +5,7 @@ import {Stream} from "./types/stream";
  * Golang[WebrtcToWeb Server] to Botem Player ...
  *
  */
-export class GtbPlayer {
+export class GbPlayer {
     /**
      * Static method, variable area
      */
@@ -14,9 +14,9 @@ export class GtbPlayer {
     static DEFAULT_PASSWORD = 'rino'
 
     private stream: Stream | null = null
-    private webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI
-    private userName: string = GtbPlayer.DEFAULT_USER_NAME
-    private password: string = GtbPlayer.DEFAULT_PASSWORD
+    private webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI
+    private userName: string = GbPlayer.DEFAULT_USER_NAME
+    private password: string = GbPlayer.DEFAULT_PASSWORD
 
     /**
      * constructor - 생성자
@@ -24,7 +24,7 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    constructor(webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
+    constructor(webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
         this.webRtcServerUri = webRtcServerUri
         this.userName = userName
         this.password = password
@@ -36,8 +36,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static getStreams(webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.GET_STREAMS_URL(), {
+    static getStreams(webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.GET_STREAMS_URL(), {
             auth: {
                 username: userName,
                 password: password,
@@ -52,8 +52,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static getStream(streamId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.GET_STREAM_URL(streamId), {
+    static getStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.GET_STREAM_URL(streamId), {
             auth: {
                 username: userName,
                 password: password,
@@ -68,8 +68,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static addStream(streamId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.post(webRtcServerUri + GtbPlayer.ADD_STREAM_URL(streamId), {
+    static addStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.post(webRtcServerUri + GbPlayer.ADD_STREAM_URL(streamId), {
             name: streamId,
         }, {
             headers: {
@@ -89,8 +89,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static editStream(streamId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.post(webRtcServerUri + GtbPlayer.EDIT_STREAM_URL(streamId), {
+    static editStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.post(webRtcServerUri + GbPlayer.EDIT_STREAM_URL(streamId), {
             name: streamId,
         }, {
             headers: {
@@ -110,8 +110,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static reloadStream(streamId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.RELOAD_STREAM_URL(streamId), {
+    static reloadStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.RELOAD_STREAM_URL(streamId), {
             auth: {
                 username: userName,
                 password: password,
@@ -126,8 +126,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static deleteStream(streamId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.DELETE_STREAM_URL(streamId), {
+    static deleteStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.DELETE_STREAM_URL(streamId), {
             auth: {
                 username: userName,
                 password: password,
@@ -145,8 +145,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static addChannel(streamId: string, channelId: string, rtspUri: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD, isOnDemand: boolean = true,) {
-        return axios.post(webRtcServerUri + GtbPlayer.ADD_CHANNEL_URL(streamId, channelId), {
+    static addChannel(streamId: string, channelId: string, rtspUri: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD, isOnDemand: boolean = true,) {
+        return axios.post(webRtcServerUri + GbPlayer.ADD_CHANNEL_URL(streamId, channelId), {
             name: streamId,
             url: rtspUri,
             on_demand: isOnDemand,
@@ -173,8 +173,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static editChannel(streamId: string, channelId: string, rtspUri: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD, isOnDemand: boolean = true,) {
-        return axios.post(webRtcServerUri + GtbPlayer.EDIT_CHANNEL_URL(streamId, channelId), {
+    static editChannel(streamId: string, channelId: string, rtspUri: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD, isOnDemand: boolean = true,) {
+        return axios.post(webRtcServerUri + GbPlayer.EDIT_CHANNEL_URL(streamId, channelId), {
             name: streamId,
             url: rtspUri,
             on_demand: isOnDemand,
@@ -199,8 +199,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static reloadChannel(streamId: string, channelId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.RELOAD_CHANNEL_URL(streamId, channelId), {
+    static reloadChannel(streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.RELOAD_CHANNEL_URL(streamId, channelId), {
             auth: {
                 username: userName,
                 password: password,
@@ -216,8 +216,8 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static deleteChannel(streamId: string, channelId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
-        return axios.get(webRtcServerUri + GtbPlayer.DELETE_CHANNEL_URL(streamId, channelId), {
+    static deleteChannel(streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        return axios.get(webRtcServerUri + GbPlayer.DELETE_CHANNEL_URL(streamId, channelId), {
             auth: {
                 username: userName,
                 password: password,
@@ -232,9 +232,9 @@ export class GtbPlayer {
      * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
      * @param webRtcServerUri - WebRTC 통신할 서버 주소
      */
-    static playHls(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI) {
+    static playHls(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI) {
         const videoElement: HTMLVideoElement = document.getElementById(videoElementId) as HTMLVideoElement
-        videoElement.src = webRtcServerUri + GtbPlayer.HLS_URL(streamId, channelId)
+        videoElement.src = webRtcServerUri + GbPlayer.HLS_URL(streamId, channelId)
         videoElement.play().then()
     }
 
@@ -247,14 +247,14 @@ export class GtbPlayer {
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    static playWebrtc(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GtbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GtbPlayer.DEFAULT_USER_NAME, password: string = GtbPlayer.DEFAULT_PASSWORD,) {
+    static playWebrtc(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
         const videoElement: HTMLVideoElement = document.getElementById(videoElementId) as HTMLVideoElement
         const webrtc: RTCPeerConnection = new RTCPeerConnection()
         webrtc.onnegotiationneeded = async () => {
             const offer = await webrtc.createOffer();
             await webrtc.setLocalDescription(offer);
 
-            axios.post(webRtcServerUri + GtbPlayer.WEBRTC_URL(streamId, channelId), btoa(webrtc.localDescription!.sdp), {
+            axios.post(webRtcServerUri + GbPlayer.WEBRTC_URL(streamId, channelId), btoa(webrtc.localDescription!.sdp), {
                 headers: {'Content-type': 'application/json'},
                 auth: {
                     username: userName,
@@ -320,7 +320,7 @@ export class GtbPlayer {
     private static WEBRTC_URL = (streamId: string, channelId: string) => `/stream/${streamId}/channel/${channelId}/webrtc?uuid=${streamId}&channel=${channelId}`
 
     getStreams() {
-        GtbPlayer.getStreams(this.webRtcServerUri).then(response => {
+        GbPlayer.getStreams(this.webRtcServerUri).then(response => {
             console.log("GET STREAM : ", response)
         })
     }

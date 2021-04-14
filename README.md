@@ -1,2 +1,2 @@
-# gtb-player
-Botem Player for RTSPtoWEB WebRTC Player with [SOME VMS]
+# gb-player
+Player for RTSPtoWEB WebRTC Server(GoLang) with [SOME VMS]

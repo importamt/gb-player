@@ -1,3 +1,3 @@
-import {GtbPlayer} from "./src/GtbPlayer";
+import {GbPlayer} from "./src/GbPlayer";
 
-module.exports = GtbPlayer
+module.exports = GbPlayer
