@@ -253,9 +253,11 @@ export class GbPlayer {
         webrtc.onnegotiationneeded = async () => {
             const offer = await webrtc.createOffer();
             await webrtc.setLocalDescription(offer);
+            const formData = new FormData()
+            formData.append('data', btoa(webrtc.localDescription!.sdp))
+            axios.post(webRtcServerUri + GbPlayer.WEBRTC_URL(streamId, channelId), formData, {
 
-            axios.post(webRtcServerUri + GbPlayer.WEBRTC_URL(streamId, channelId), btoa(webrtc.localDescription!.sdp), {
-                headers: {'Content-type': 'application/json'},
+                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 auth: {
                     username: userName,
                     password: password,
