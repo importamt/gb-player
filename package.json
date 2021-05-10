@@ -1,16 +1,16 @@
 {
   "type": "module",
-  "name": "gtb-player",
+  "name": "gb-player",
   "version": "0.0.1",
   "description": "Botem Player for RTSPtoWEB WebRTC Player with [SOME VMS]",
   "main": "dits/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production grunt build"
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/importamt/gtb-player.git"
+    "url": "git+https://github.com/importamt/gb-player.git"
   },
   "keywords": [
     "webRtc",
@@ -19,9 +19,9 @@
   "author": "importamt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/importamt/b-player/issues"
+    "url": "https://github.com/importamt/gb-player/issues"
   },
-  "homepage": "https://github.com/importamt/b-player#readme",
+  "homepage": "https://github.com/importamt/gb-player#readme",
   "devDependencies": {
     "@babel/core": "^7.13.15",
     "@babel/register": "^7.13.14",
