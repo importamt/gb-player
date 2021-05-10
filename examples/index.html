@@ -20,16 +20,15 @@
     </style>
 </head>
 <body>
-    <video id="player"></video>
+    <video autoplay controls muted id="player"></video>
 </body>
 
-<script src="../dist/gtbPlayer.js"></script>
+<script src="../dist/gbPlayer.js"></script>
 <script type="application/javascript">
-    const a= new GtbPlayer('http://localhost:8083', 'rino', 'rino')
-    a.greeting()
+    const a= new GbPlayer('http://localhost:8083', 'rino', 'rino')
     a.getStreams()
 
-    GtbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
+    GbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
     // GtbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
 </script>
 </html>
