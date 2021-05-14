@@ -1,6 +1,6 @@
 <html lang="ko">
 <head>
-    <title>GtbPlayer Example</title>
+    <title>GbPlayer Example</title>
     <style>
         html, body {
             width: 100vw;
@@ -9,6 +9,7 @@
             display: flex;
             justify-content: center;
             align-content: center;
+            flex-wrap: wrap;
         }
 
         video{
@@ -20,15 +21,25 @@
     </style>
 </head>
 <body>
-    <video autoplay controls muted id="player"></video>
+    <video autoplay controls muted id="player0"></video>
+    <video autoplay controls muted id="player1"></video>
+    <video autoplay controls muted id="player2"></video>
+    <video autoplay controls muted id="player3"></video>
+    <video autoplay controls muted id="player4"></video>
+    <video autoplay controls muted id="player5"></video>
+    <video autoplay controls muted id="player6"></video>
+    <video autoplay controls muted id="player7"></video>
+    <video autoplay controls muted id="player8"></video>
 </body>
 
 <script src="../dist/gbPlayer.js"></script>
 <script type="application/javascript">
-    const a= new GbPlayer('http://localhost:8083', 'rino', 'rino')
-    a.getStreams()
 
-    GbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
-    // GtbPlayer.playWebrtc('player', 'demo', '0', 'http://localhost:8083')
+    const gbPlayer = new GbPlayer('http://localhost:8083', 'rino', 'rino')
+    // gbPlayer.addChannel('demo003', 'channel001', 'rtsp://admin:admin@10.10.3.6/media/video1')
+    // NORMAL
+    gbPlayer.start('player0', 'demo005', '0', 'rtsp://admin:admin@10.10.3.6/media/video1')
+    gbPlayer.start('player1', 'demo006', '123', 'rtsp://admin:admin@10.10.3.6/media/video1')
+
 </script>
 </html>
