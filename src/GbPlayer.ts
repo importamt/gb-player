@@ -15,8 +15,8 @@ export class GbPlayer {
 
     private stream: Stream | null = null
     private webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI
-    private userName: string = GbPlayer.DEFAULT_USER_NAME
-    private password: string = GbPlayer.DEFAULT_PASSWORD
+    private readonly userName: string = GbPlayer.DEFAULT_USER_NAME
+    private readonly password: string = GbPlayer.DEFAULT_PASSWORD
 
     /**
      * constructor - 생성자
@@ -71,6 +71,7 @@ export class GbPlayer {
     static addStream(streamId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
         return axios.post(webRtcServerUri + GbPlayer.ADD_STREAM_URL(streamId), {
             name: streamId,
+            channels: {}
         }, {
             headers: {
                 'Content-type': 'application/json'
@@ -239,7 +240,7 @@ export class GbPlayer {
     }
 
     /**
-     * playHls - Webrtc 재생
+     * playWebrtc - Webrtc 재생
      * @param videoElementId - ID of HTMLVideoElement
      * @param streamId - VMS 에서 사용하는 Stream 아이디
      * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
@@ -321,9 +322,142 @@ export class GbPlayer {
     private static HLS_URL = (streamId: string, channelId: string) => `/stream/${streamId}/channel/${channelId}/hls/live/index.m3u8`
     private static WEBRTC_URL = (streamId: string, channelId: string) => `/stream/${streamId}/channel/${channelId}/webrtc?uuid=${streamId}&channel=${channelId}`
 
+    /**
+     * getStreams - Stream 배열의 이름, 주소, 옵션값 등을 얻는다.
+     */
     getStreams() {
-        GbPlayer.getStreams(this.webRtcServerUri).then(response => {
-            console.log("GET STREAM : ", response)
-        })
+        return GbPlayer.getStreams(this.webRtcServerUri, this.userName, this.password).then(response => response.data)
     }
+
+    /**
+     * getStream - Stream 아이디를 통해 이름, 주소, 옵션값 등을 얻는다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     */
+    getStream(streamId: string) {
+        return GbPlayer.getStream(streamId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * addStream - Stream 을 WebRtc Server 에 등록한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     */
+    addStream(streamId: string) {
+        return GbPlayer.addStream(streamId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * editStream - Stream 정보를 WebRtc Server 에 보내 수정한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     */
+    editStream(streamId: string) {
+        return GbPlayer.editStream(streamId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * reloadStream - Stream 영상을 갱신한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     */
+    reloadStream(streamId: string) {
+        return GbPlayer.reloadStream(streamId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * deleteStream - Stream 영상을 삭제한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     */
+    deleteStream(streamId: string) {
+        return GbPlayer.deleteStream(streamId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * addChanel - Stream 에 Channel 을 추가한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     * @param rtspUri - RTSP URI
+     */
+    addChannel(streamId: string, channelId: string, rtspUri: string) {
+        return GbPlayer.addChannel(streamId, channelId, rtspUri, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * editChanel - Stream 의 Channel 정보를 수정한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     * @param rtspUri - RTSP URI
+     */
+    editChannel(streamId: string, channelId: string, rtspUri: string) {
+        return GbPlayer.editChannel(streamId, channelId, rtspUri, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * reloadChannel - Stream 의 Channel 을 갱신한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     */
+    reloadChannel(streamId: string, channelId: string) {
+        return GbPlayer.reloadChannel(streamId, channelId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * deleteChannel - Stream 의 Channel 을 삭제한다.
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     */
+    deleteChannel(streamId: string, channelId: string) {
+        return GbPlayer.deleteChannel(streamId, channelId, this.webRtcServerUri, this.userName, this.password).then(response => response.data)
+    }
+
+    /**
+     * playHls - HLS 재생
+     * @param videoElementId - ID of HTMLVideoElement
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     */
+    playHls(videoElementId: string, streamId: string, channelId: string) {
+        return GbPlayer.playHls(videoElementId, streamId, channelId, this.webRtcServerUri,)
+    }
+
+    /**
+     * playWebrtc - Webrtc 재생
+     * @param videoElementId - ID of HTMLVideoElement
+     * @param streamId - VMS 에서 사용하는 Stream 아이디
+     * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
+     */
+    playWebrtc(videoElementId: string, streamId: string, channelId: string) {
+        return GbPlayer.playWebrtc(videoElementId, streamId, channelId, this.webRtcServerUri, this.userName, this.password)
+    }
+
+    start(videoElementId: string, streamId: string, channelId: string, rtspUri: string) {
+        //Check Stream exist
+        //add if not exist
+        this.getStream(streamId).then(async data => {
+            const stream = data.payload
+            const channels = stream.channels
+
+            const channel = channels && channels[channelId]
+            //Check Channel exist
+            if (channel) {
+                //edit if rtspUri is not equals
+                if (channel.url !== rtspUri) {
+                    console.warn("RTSP URI is not equals", streamId, channelId, rtspUri)
+                    await this.editChannel(streamId, channelId, rtspUri)
+                }
+            } else {
+                console.warn("Channel not exist", streamId, channelId)
+                //add if not exist
+                await this.addChannel(streamId, channelId, rtspUri)
+            }
+        }).catch(async _ => {
+            console.warn("Stream not exist", streamId)
+            await this.addStream(streamId).then(async _ => {
+                await this.addChannel(streamId, channelId, rtspUri)
+            })
+        }).finally(() => {
+            //playWebrtc
+            this.playWebrtc(videoElementId, streamId, channelId)
+        })
+
+
+    }
+
 }
