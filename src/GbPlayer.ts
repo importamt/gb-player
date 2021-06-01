@@ -14,17 +14,20 @@ export class GbPlayer {
     static DEFAULT_PASSWORD = 'rino'
 
     private stream: Stream | null = null
-    private webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI
+    private videoElementId: string
+    private readonly webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI
     private readonly userName: string = GbPlayer.DEFAULT_USER_NAME
     private readonly password: string = GbPlayer.DEFAULT_PASSWORD
 
     /**
      * constructor - 생성자
+     * @param videoElementId - ID of HTMLVideoElement
      * @param webRtcServerUri - WebRTC 통신할 서버 주소
      * @param userName - 사용자 이름
      * @param password - 비밀번호
      */
-    constructor(webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+    constructor(videoElementId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
+        this.videoElementId = videoElementId
         this.webRtcServerUri = webRtcServerUri
         this.userName = userName
         this.password = password
@@ -413,8 +416,8 @@ export class GbPlayer {
      * @param streamId - VMS 에서 사용하는 Stream 아이디
      * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
      */
-    playHls(videoElementId: string, streamId: string, channelId: string) {
-        return GbPlayer.playHls(videoElementId, streamId, channelId, this.webRtcServerUri,)
+    playHls(streamId: string, channelId: string) {
+        return GbPlayer.playHls(this.videoElementId, streamId, channelId, this.webRtcServerUri,)
     }
 
     /**
@@ -423,38 +426,40 @@ export class GbPlayer {
      * @param streamId - VMS 에서 사용하는 Stream 아이디
      * @param channelId - Stream 내 영상 Channel 아이디. (VMS 에서는 Live, Vod 등의 구분 용도로 사용할 예정)
      */
-    playWebrtc(videoElementId: string, streamId: string, channelId: string) {
-        return GbPlayer.playWebrtc(videoElementId, streamId, channelId, this.webRtcServerUri, this.userName, this.password)
+    playWebrtc(streamId: string, channelId: string) {
+        return GbPlayer.playWebrtc(this.videoElementId, streamId, channelId, this.webRtcServerUri, this.userName, this.password)
     }
 
-    start(videoElementId: string, streamId: string, channelId: string, rtspUri: string) {
+    start(streamId: string, channelId: string, rtspUri: string) {
+
+        const convertedChannelId = channelId.split('/').join('___')
         //Check Stream exist
         //add if not exist
         this.getStream(streamId).then(async data => {
             const stream = data.payload
             const channels = stream.channels
 
-            const channel = channels && channels[channelId]
+            const channel = channels && channels[convertedChannelId]
             //Check Channel exist
             if (channel) {
                 //edit if rtspUri is not equals
                 if (channel.url !== rtspUri) {
-                    console.warn("RTSP URI is not equals", streamId, channelId, rtspUri)
-                    await this.editChannel(streamId, channelId, rtspUri)
+                    console.warn("RTSP URI is not equals", streamId, convertedChannelId, rtspUri)
+                    await this.editChannel(streamId, convertedChannelId, rtspUri)
                 }
             } else {
-                console.warn("Channel not exist", streamId, channelId)
+                console.warn("Channel not exist", streamId, convertedChannelId)
                 //add if not exist
-                await this.addChannel(streamId, channelId, rtspUri)
+                await this.addChannel(streamId, convertedChannelId, rtspUri)
             }
         }).catch(async _ => {
             console.warn("Stream not exist", streamId)
             await this.addStream(streamId).then(async _ => {
-                await this.addChannel(streamId, channelId, rtspUri)
+                await this.addChannel(streamId, convertedChannelId, rtspUri)
             })
         }).finally(() => {
             //playWebrtc
-            this.playWebrtc(videoElementId, streamId, channelId)
+            this.playWebrtc(streamId, convertedChannelId)
         })
 
 

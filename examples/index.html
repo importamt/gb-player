@@ -35,11 +35,14 @@
 <script src="../dist/gbPlayer.js"></script>
 <script type="application/javascript">
 
-    const gbPlayer = new GbPlayer('http://localhost:8083', 'rino', 'rino')
+    const gbPlayer1 = new GbPlayer('player0', 'http://localhost:8083', 'rino', 'rino')
+    const gbPlayer2 = new GbPlayer('player1', 'http://localhost:8083', 'rino', 'rino')
+    const gbPlayer3 = new GbPlayer('player2', 'http://localhost:8083', 'rino', 'rino')
     // gbPlayer.addChannel('demo003', 'channel001', 'rtsp://admin:admin@10.10.3.6/media/video1')
     // NORMAL
-    gbPlayer.start('player0', 'demo005', '0', 'rtsp://admin:admin@10.10.3.6/media/video1')
-    gbPlayer.start('player1', 'demo006', '123', 'rtsp://admin:admin@10.10.3.6/media/video1')
+    gbPlayer1.start('player0', 'demo005', 'rtsp://10.30.8.89:1935/live/STREAM_1602029011623.stream')
+    gbPlayer2.start('player1', 'demo006', 'rtsp://10.30.8.89:1935/live/STREAM_1602028988806.stream')
+    gbPlayer3.start('player2', 'demo007', 'rtsp://10.30.8.89:1935/live/STREAM_1602029060613.stream')
 
 </script>
 </html>
