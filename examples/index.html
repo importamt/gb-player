@@ -40,9 +40,13 @@
     const gbPlayer3 = new GbPlayer('player2', 'http://localhost:8083', 'rino', 'rino')
     // gbPlayer.addChannel('demo003', 'channel001', 'rtsp://admin:admin@10.10.3.6/media/video1')
     // NORMAL
-    gbPlayer1.start('player0', 'demo005', 'rtsp://10.30.8.89:1935/live/STREAM_1602029011623.stream')
-    gbPlayer2.start('player1', 'demo006', 'rtsp://10.30.8.89:1935/live/STREAM_1602028988806.stream')
-    gbPlayer3.start('player2', 'demo007', 'rtsp://10.30.8.89:1935/live/STREAM_1602029060613.stream')
+    gbPlayer1.start('testB', 'hello', 'rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov', true)
+    gbPlayer2.start('test2', 'hello', 'rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov', true)
+    gbPlayer3.start('test3', 'hello', 'rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov', true)
+
+    // gbPlayer1.playWebrtc('test1', 'hello')
+    // gbPlayer2.playWebrtc('test2', 'hello')
+    // gbPlayer3.playWebrtc('test3', 'hello')
 
 </script>
 </html>
