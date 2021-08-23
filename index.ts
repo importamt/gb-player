@@ -1,3 +1,5 @@
 import {GbPlayer} from "./src/GbPlayer";
 
-module.exports = GbPlayer
+// @ts-ignore
+window.GbPlayer = GbPlayer
+export default GbPlayer
