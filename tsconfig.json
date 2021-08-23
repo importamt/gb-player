@@ -6,5 +6,7 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true
   }
 }

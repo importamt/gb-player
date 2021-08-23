@@ -9,9 +9,6 @@ module.exports = {
     output: {
         filename: 'gbPlayer.js',
         sourceMapFilename: 'gbPlayer.map',
-        library: 'GbPlayer',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
     },
     module: {
         rules: [{
@@ -22,6 +19,7 @@ module.exports = {
         }]
     },
     resolve: {
+        modules: ['node_modules'],
         extensions: ['.ts', '.js']
     },
 };
