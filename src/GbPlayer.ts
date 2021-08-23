@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {Stream} from "./types/stream";
+import Hls from "hls.js";
 
 /**
  * Golang[WebrtcToWeb Server] to Botem Player ...
@@ -238,8 +239,20 @@ export class GbPlayer {
      */
     static playHls(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI) {
         const videoElement: HTMLVideoElement = document.getElementById(videoElementId) as HTMLVideoElement
-        videoElement.src = webRtcServerUri + GbPlayer.HLS_URL(streamId, channelId)
-        videoElement.play().then()
+        const source = webRtcServerUri + GbPlayer.HLS_URL(streamId, channelId)
+
+        if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+            videoElement.src = source
+            videoElement.load()
+        } else {
+            if (Hls.isSupported()) {
+                const hls = new Hls()
+                hls.loadSource(source)
+                hls.attachMedia(videoElement)
+            } else {
+                console.warn("Your browser doesn't support HLS")
+            }
+        }
     }
 
     /**
@@ -253,7 +266,11 @@ export class GbPlayer {
      */
     static playWebrtc(videoElementId: string, streamId: string, channelId: string, webRtcServerUri: string = GbPlayer.DEFAULT_WEBRTC_SERVER_URI, userName: string = GbPlayer.DEFAULT_USER_NAME, password: string = GbPlayer.DEFAULT_PASSWORD,) {
         const videoElement: HTMLVideoElement = document.getElementById(videoElementId) as HTMLVideoElement
-        const webrtc: RTCPeerConnection = new RTCPeerConnection()
+        const webrtc: RTCPeerConnection = new RTCPeerConnection({
+            iceServers: [{
+                urls: ["stun:stun.l.google.com:19302"]
+            }]
+        })
         webrtc.onnegotiationneeded = async () => {
             const offer = await webrtc.createOffer();
             await webrtc.setLocalDescription(offer);
@@ -430,8 +447,7 @@ export class GbPlayer {
         return GbPlayer.playWebrtc(this.videoElementId, streamId, channelId, this.webRtcServerUri, this.userName, this.password)
     }
 
-    start(streamId: string, channelId: string, rtspUri: string) {
-
+    start(streamId: string, channelId: string, rtspUri: string, isHls: boolean = false) {
         const convertedChannelId = channelId.split('/').join('___')
         //Check Stream exist
         //add if not exist
@@ -459,10 +475,12 @@ export class GbPlayer {
             })
         }).finally(() => {
             //playWebrtc
-            this.playWebrtc(streamId, convertedChannelId)
+            if( isHls ){
+                this.playHls(streamId, convertedChannelId)
+            } else {
+                this.playWebrtc(streamId, convertedChannelId)
+            }
         })
-
-
     }
 
 }
